@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After Rollers | Ride your vibe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --metallic-green: #059669;
+            --neon-green: #10b981;
+            --dark-metal: #020617;
+        }
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .hero-bg { background: linear-gradient(135deg, #020617 0%, #064e3b 100%); }
+        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 30px -10px rgba(16, 185, 129, 0.2); }
+        .img-container { background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; height: 280px; position: relative; }
+        .product-image { width: 100%; height: 100%; object-fit: contain; padding: 25px; transition: transform 0.6s ease; }
+        .card-hover:hover .product-image { transform: scale(1.1); }
+        
+        .category-tag { 
+            background: rgba(16, 185, 129, 0.1); 
+            color: #059669; 
+            padding: 4px 12px; 
+            border-radius: 8px; 
+            font-size: 0.65rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em;
+            display: inline-block;
+        }
+        
+        .skeleton { 
+            background: linear-gradient(90deg, #f1f5f9 25%, #ecfdf5 50%, #f1f5f9 75%); 
+            background-size: 200% 100%; 
+            animation: shimmer 1.5s infinite; 
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .brand-logo { height: 45px; width: auto; object-fit: contain; }
+        
+        .text-glow {
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navegación -->
+    <header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-emerald-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="https://drive.google.com/thumbnail?id=1HGJZCxe1glvF4w4-gw75Z-dexb3oeXY5&sz=w200" alt="After Rollers Logo" class="brand-logo">
+                <h1 class="text-2xl font-black text-slate-900 tracking-tighter uppercase italic ml-2">After <span class="text-emerald-600">Rollers</span></h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="item-count" class="hidden md:inline-block bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-emerald-100">
+                    Sincronizando...
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-24 px-6 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+            <span class="text-[20vw] font-black tracking-tighter select-none">VIBE</span>
+        </div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="inline-block bg-emerald-500 text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-[0.3em] mb-6 animate-pulse shadow-lg shadow-emerald-500/20">Chrome Collection</div>
+            <h2 class="text-6xl md:text-8xl font-black mb-4 leading-none tracking-tighter uppercase italic text-glow">Ride <span class="text-emerald-400 italic">your vibe</span></h2>
+            <p class="text-emerald-100/60 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+                Potencia tu ruta con el estilo único de After Rollers. Tecnología aplicada al diseño sobre ruedas.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filtros -->
+    <div class="max-w-7xl mx-auto px-6 -mt-8 relative z-20">
+        <div class="bg-white p-6 rounded-[2rem] shadow-xl border border-emerald-50">
+            <div class="flex items-center gap-2 mb-4 text-slate-400">
+                <i class="fa-solid fa-layer-group text-xs text-emerald-500"></i>
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Categorías Disponibles</span>
+            </div>
+            <div id="filter-container" class="flex flex-wrap gap-2">
+                <div class="skeleton w-24 h-10 rounded-xl"></div>
+                <div class="skeleton w-24 h-10 rounded-xl"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grilla de Productos -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+            <div class="skeleton h-[500px] rounded-[3rem]"></div>
+            <div class="skeleton h-[500px] rounded-[3rem]"></div>
+            <div class="skeleton h-[500px] rounded-[3rem]"></div>
+            <div class="skeleton h-[500px] rounded-[3rem]"></div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 py-20 text-center mt-20 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col items-center gap-6">
+                <img src="https://drive.google.com/thumbnail?id=1HGJZCxe1glvF4w4-gw75Z-dexb3oeXY5&sz=w200" alt="Logo" class="h-16 brightness-0 invert opacity-80">
+                <h3 class="text-3xl font-black tracking-tighter uppercase italic">After <span class="text-emerald-500">Rollers</span></h3>
+                <p class="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.4em] -mt-4 mb-4 italic">Ride your vibe</p>
+                <div class="flex justify-center gap-10 text-2xl mt-4">
+                    <a href="#" class="text-slate-500 hover:text-emerald-400 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-slate-500 hover:text-emerald-400 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+                <p class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.5em] mt-8">Bogotá • Colombia</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const TSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTAw27anU0ZGKtMHKaFA4rJqQLMuAxDMflvC9h7SrVXZjkyfUPu1Mxw3ZHNguoLu9YmQPkNBg-b4iBw/pub?gid=0&single=true&output=tsv';
+        
+        let productsDB = [];
+
+        async function init() {
+            try {
+                const response = await fetch(TSV_URL);
+                const text = await response.text();
+                parseTSV(text);
+            } catch (err) {
+                console.error('Error al cargar la hoja:', err);
+                document.getElementById('item-count').innerText = "ERROR DE CONEXIÓN";
+            }
+        }
+
+        function parseTSV(tsv) {
+            const rows = tsv.split(/\r?\n/);
+            const items = [];
+            const cats = new Set();
+
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (!row.trim()) continue;
+
+                const cols = row.split('\t');
+                
+                const name = cols[0]?.trim();
+                if (!name) continue;
+
+                const ref = cols[1]?.trim() || "N/A";
+                const productUrl = cols[2]?.trim() || "#";
+                const img = cols[3]?.trim() || "";
+                
+                const rawRating = cols[4]?.trim().replace(',', '.');
+                const rating = rawRating ? parseFloat(rawRating).toFixed(1) : "5.0";
+                
+                let priceText = cols[5] || "0";
+                let priceVal = parseInt(priceText.replace(/[^\d]/g, '')) || 0;
+
+                let cat = cols[6]?.trim() || "General";
+
+                items.push({ name, ref, productUrl, img, rating, price: priceVal, cat });
+                cats.add(cat);
+            }
+
+            productsDB = items;
+            renderFilters(Array.from(cats));
+            renderProducts(productsDB);
+        }
+
+        function formatMoney(val) {
+            return new Intl.NumberFormat('es-CO', { 
+                style: 'currency', 
+                currency: 'COP', 
+                maximumFractionDigits: 0 
+            }).format(val);
+        }
+
+        function renderFilters(categories) {
+            const container = document.getElementById('filter-container');
+            let html = `<button onclick="filterItems('all')" class="filter-btn active bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-emerald-200 transition-all">Todos</button>`;
+            
+            categories.sort().forEach(c => {
+                html += `<button onclick="filterItems('${c}')" class="filter-btn bg-slate-50 text-slate-500 border border-slate-100 hover:border-emerald-200 hover:text-emerald-600 px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all">${c}</button>`;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function renderProducts(data) {
+            const grid = document.getElementById('product-grid');
+            const count = document.getElementById('item-count');
+            
+            grid.innerHTML = data.map(item => {
+                const imgDisplay = (!item.img || item.img === "no image") 
+                    ? 'https://placehold.co/600x600/f0fdf4/059669?text=After+Rollers' 
+                    : item.img;
+
+                return `
+                    <div class="bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 card-hover flex flex-col h-full group">
+                        <div class="img-container">
+                            <div class="absolute top-6 right-6 flex items-center gap-1 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm z-10 border border-emerald-50">
+                                <i class="fa-solid fa-star text-emerald-400 text-[10px]"></i>
+                                <span class="text-[10px] font-black text-slate-700">${item.rating}</span>
+                            </div>
+                            <img src="${imgDisplay}" alt="${item.name}" class="product-image" onerror="this.src='https://placehold.co/600x600/f0fdf4/059669?text=After+Rollers'">
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <!-- Nueva Distribución Solicitada -->
+                            <div class="mb-6">
+                                <h3 class="text-xl font-black text-slate-800 leading-tight tracking-tight uppercase italic line-clamp-2 mb-2">${item.name}</h3>
+                                <p class="text-3xl font-black text-emerald-600 leading-none mb-3">${formatMoney(item.price)}</p>
+                                <span class="category-tag">${item.cat}</span>
+                            </div>
+
+                            <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-[8px] font-black text-slate-300 uppercase tracking-widest">Referencia</span>
+                                    <span class="text-[10px] font-mono font-bold text-slate-500">${item.ref}</span>
+                                </div>
+                                <a href="${item.productUrl}" target="_blank" class="w-12 h-12 bg-slate-950 text-white rounded-2xl flex items-center justify-center hover:bg-emerald-600 transition-all shadow-lg active:scale-90 group-hover:-rotate-3">
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            count.innerText = `${data.length} ÍTEMS ACTUALIZADOS`;
+        }
+
+        function filterItems(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if(btn.innerText.toLowerCase() === category.toLowerCase() || (category === 'all' && btn.innerText.toLowerCase() === 'todos')) {
+                    btn.className = "filter-btn bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-emerald-200 transition-all";
+                } else {
+                    btn.className = "filter-btn bg-slate-50 text-slate-500 border border-slate-100 hover:border-emerald-200 hover:text-emerald-600 px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all";
+                }
+            });
+
+            if (category === 'all') {
+                renderProducts(productsDB);
+            } else {
+                const filtered = productsDB.filter(p => p.cat === category);
+                renderProducts(filtered);
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
